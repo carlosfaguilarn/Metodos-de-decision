@@ -18,10 +18,10 @@
                 <td *ngFor="let j of fil; let y = index">
                     <span *ngIf="i == 1">
                         <input type="text" placeholder="Nombre  columna"/>    
-                        <input type="text" id="dato{{x}}_{{y}}" value="dato({{x}},{{y}})"/>
+                        <input type="text" id="dato{{x}}_{{y}}" value="{{x+y}}"/>
                     </span>
                     <span *ngIf="i != 1">
-                        <input type="text" id="dato{{x}}_{{y}}" value="dato({{x}},{{y}})"/>
+                        <input type="text" id="dato{{x}}_{{y}}" value="{{x+y}}"/>
                     </span> 
                 </td>
             </tr>
