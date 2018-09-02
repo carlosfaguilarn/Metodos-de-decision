@@ -9,6 +9,10 @@
             <label>Filas</label>
             <input type="text" name="filas" [(ngModel)]="columnas" class="form-control" required>
         </p>
+        <p>
+            <label>Coeficiente optimismo</label>
+            <input type="text" name="filas" [(ngModel)]="p" class="form-control" required>
+        </p>
         <hr>
         <table>
             <tr *ngFor="let i of col; let x = index">
@@ -30,5 +34,24 @@
             <input type="submit" class="btn btn-primary" value="Calcular"/>
         </p>
     </form>
+    <table class="table col-lg-10">
+        <thead>
+          <tr>
+            <th>Alternativa</th>
+            <th>Maximin</th>
+            <th>Maximax</th>
+            <th>Coeficiente optimismo</th>
+            <th>Razón suficiente</th>
+            <th>Coste oportunidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <span *ngFor="let i of fil; let indice = index;">
+              <tr>
+                  <td>Alternativa{{indice}}</td>
+              </tr>
+          </span>
+        </tbody>
+      </table>
 </div>
 
