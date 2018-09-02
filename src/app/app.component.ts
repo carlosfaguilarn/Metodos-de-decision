@@ -16,26 +16,26 @@ export class AppComponent implements DoCheck {
 	public fil : number[] = [1];   //Arreglo para iterar con la directiva ngFor
 
 	public datos  = [];            //Objeto con los datos resultantes de la tabla
-	element: HTMLInputElement;     //elemento HTML para recoger los datos de las celdas de la tabla
+	element: HTMLInputElement;     //Elemento HTML para recoger los datos de las celdas de la tabla
 	
 	constructor(){}
 
 	ngDoCheck(){ 
-		//Actualiza el la longitud de la tabla (DataBinding para el DOM)
+		//Actualiza la longitud de la tabla (DataBinding para el DOM)
 		this.col.length = this.columnas;
-		this.fil.length = this.filas;	
+		this.fil.length = this.filas;
 	}
 	onSubmit(){
-		//Imprimir longitud de la tabla
+		//Imprime longitud de la tabla
 		console.log("filas: "+this.fil.length);
 		console.log("columnas: "+this.col.length);
 
-		//Recorre las filas
-		for(var i = 0; i < this.fil.length; i++){
+		//Recorre las columnas (itera hacia la derecha)
+		for(var i = 0; i < this.col.length; i++){
 			//Arreglo temporal para almacenar la fila[i]
 			var objeto = [];
-			//Recorre todas las columnas
-			for(var j = 0; j < this.col.length; j++){
+			//Recorre las celdas de la fila
+			for(var j = 0; j < this.fil.length; j++){
 				//Busca y recoge el valor de la celda indexada y lo imprime
 				let id = "dato"+i+"_"+j;
 				this.element = document.getElementById(id) as HTMLInputElement; 
