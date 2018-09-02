@@ -1,0 +1,34 @@
+<h1 class="text-center">Métodos de decisión</h1>
+<div class="col-lg-5">
+    <form #dataForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-10">
+        <p>
+            <label>Columnas</label>
+            <input type="text" name="columnas" [(ngModel)]="filas" class="form-control" required>
+        </p>
+        <p>
+            <label>Filas</label>
+            <input type="text" name="filas" [(ngModel)]="columnas" class="form-control" required>
+        </p>
+        <hr>
+        <table>
+            <tr *ngFor="let i of col; let x = index">
+                <span *ngIf="x == 0"><input type="text" disabled/><input type="text" placeholder="Nombre fila"/></span>
+                <span *ngIf="x != 0"><input type="text" placeholder="Nombre fila"/></span>
+            
+                <td *ngFor="let j of fil; let y = index">
+                    <span *ngIf="i == 1">
+                        <input type="text" placeholder="Nombre  columna"/>    
+                        <input type="text" id="dato{{x}}_{{y}}" value="dato({{x}},{{y}})"/>
+                    </span>
+                    <span *ngIf="i != 1">
+                        <input type="text" id="dato{{x}}_{{y}}" value="dato({{x}},{{y}})"/>
+                    </span> 
+                </td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" class="btn btn-primary" value="Calcular"/>
+        </p>
+    </form>
+</div>
+
