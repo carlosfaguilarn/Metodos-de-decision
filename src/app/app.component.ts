@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck, ViewChild } from '@angular/core';
 import { Inject }  from '@angular/core';
 import { DOCUMENT } from '@angular/common'; 
+import { isNgTemplate } from '../../node_modules/@angular/compiler';
 
 @Component({
 	selector: 'app-root',
@@ -33,7 +34,7 @@ export class AppComponent implements DoCheck {
 		//Imprime longitud de la tabla
 		console.log("filas: "+this.fil.length);
 		console.log("columnas: "+this.col.length);
-		console.log("q: "+this.q);
+		//console.log(this.datos); 
 
 		//Recorre las columnas (itera hacia la derecha)
 		for(var i = 0; i < this.col.length; i++){
@@ -65,6 +66,10 @@ export class AppComponent implements DoCheck {
 		let valor_coeficiente :string = this.coeficienteOptimismo().valor;
 		let index_coeficiente : number = this.coeficienteOptimismo().index + 1;
 		console.log("El valor coeficiente optimismo es: "+valor_coeficiente+ " En la fila: "+index_coeficiente); 
+		//Calcular coste oportunidad
+		let valor_coste_oportunidad :number = this.costeOportunidad().valor;
+		let index_coste_oportunidad : number = this.costeOportunidad().index + 1;
+		console.log("El valor coste oportunidad es: "+valor_coste_oportunidad+ " En la fila: "+index_coste_oportunidad); 
 	}
 
 	maximin(){
@@ -141,6 +146,8 @@ export class AppComponent implements DoCheck {
 			//Calcula con coeficiente optimisma y guarda en arreglo resultados
 			let res = this.p*maximo + this.q*minimo;
 			resultados.push(res);
+
+			 
 		});
 		let resultado, index;
 		resultados.forEach((valor, i, array)=>{
@@ -153,6 +160,59 @@ export class AppComponent implements DoCheck {
 		return {
 			"index" : index,
 			"valor" : resultado
+		}
+	} 
+	costeOportunidad(){ 
+		let string_array : string[] = [];
+
+		
+		
+
+		this.datos.forEach((v,i,a)=>{
+			string_array.push(v.toString());
+		});
+		
+		let len = string_array[0].split(',').length;
+
+		let numeros = [];
+		for(var i = 0; i < len; i++){
+			//i = columnas
+			//j = filas
+			numeros[i] = 0;
+			//let columna = [];
+			for(var j = 0; j < this.datos.length; j++){
+				if(parseInt(this.datos[j][i]) > numeros[i] ){
+					numeros[i] = parseInt(this.datos[j][i]);
+				} 
+				//columna.push(parseInt(this.datos[j][i]));
+			}
+		}
+		//console.log(numeros); 
+		let coste_op = [];
+
+		this.datos.forEach((valor,index,array)=>{
+			coste_op[index]=0;
+			valor.forEach((v,i,a)=>{
+				coste_op[index] += numeros[i]-parseInt(v);
+			});
+		});
+
+		coste_op.forEach((v,i,a)=>{
+			coste_op[i] = v / len;
+		});
+		console.log(coste_op);
+		
+		let resultado: number;
+		let index: number;
+		coste_op.forEach((valor, i, array)=>{
+			if(valor === Math.min.apply(null, coste_op)){
+				resultado = valor;
+				index = i;
+			}
+		});
+		return {
+			"index": index,
+			"valor": resultado
 		}
 	}
 }
